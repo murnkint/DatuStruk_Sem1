@@ -39,7 +39,25 @@ public class MyArrayList {
 	}
 	//howManyElements
 	public int howManyElements() {
-		return size;
+		return counter;
 	}
-
+	//TODO
+	//1. funkcijas dekleracija
+	private void resize() {
+	//3. aprēķināt newSize
+		int newSize = (counter <= 100)? size * 2 :(int)(size * 1.5);
+	//4. izveidot listNew ar  newSize izmeru
+		int[] listNew = new int [newSize];
+	//5. veikt kopēšanas no vecā masīva uz jauno
+		for (int i = 0; i < size; i++) {
+			listNew[i] = list[i];
+		}
+		
+	//6. nomainām list referenci uz lisNew
+		list =listNew;
+	//7. izsaukt Gribage Collector
+		System.gc();
+	//8. size naomainām uz newSize
+		size = newSize;
+	}
 }
