@@ -136,5 +136,39 @@ public class MyArrayList {
 		return neighbours;
 	}
 	
+	public void print() throws Exception{
+		if (isEmpty()) throw new Exception("Array is empty and it is not possible to return element");
+		
+		for (int i = 0; i < counter; i++) {
+			System.out.print(list[i] + " ");
+			
+		}
+		System.out.println();
+	}
+	
+	public void makeEmpty() {
+		counter = 0;
+		size = LIST_DEFAULT_SITE;
+		list = new int[size];
+		System.gc();
+		
+	}
+	public void sort() throws Exception{
+		if (isEmpty()) throw new Exception("Array is empty");
+		for (int i = 0; i < counter; i++) {
+			for (int j = 0; j < counter; j++) {
+				if(list[i] > list[j]) {
+					swap(i, j);
+				}
+			}	
+		}
+	}
+	
+	public void swap(int index1, int index2){
+		int tmp = index1;
+		index1 = index2;
+		index2 = tmp;
+	}
+	
 }
 
