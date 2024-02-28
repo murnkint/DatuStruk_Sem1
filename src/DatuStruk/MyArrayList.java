@@ -1,5 +1,7 @@
 package DatuStruk;
 
+import java.util.ArrayList;
+
 public class MyArrayList {
 	
 	private int[] list;
@@ -84,12 +86,55 @@ public class MyArrayList {
 		if(index < 0 || index > counter) {
 			throw new Exception("Nav pareizs index");
 		}
-		if (isEmpty()) throw new Exception("List is empty");
+		if (isEmpty()) throw new Exception("Array is empty and it is not possible to return element");
 		
 		for(int i = index; i < counter -1; i++) {
 			list[i] = list[i+1];
 		}
 		counter--;
 	}
+	
+	public int get(int index) throws Exception{
+		if(index < 0 || index > counter) {
+			throw new Exception("Nav pareizs index");
+		}
+		if (isEmpty()) throw new Exception("Array is empty and it is not possible to return element");
+		
+		return list[index];
+	}
+	
+	public ArrayList<Integer> search(int el) throws Exception{
+		if (isEmpty()) throw new Exception("Array is empty and it is not possible to return element");
+		
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+		
+		for (int i = 0; i < counter; i++) {
+			if(list[i] == el) {
+				indexes.add(i);
+			}
+		}
+		if(indexes.size() == 0) throw new Exception("Element is not found");
+		
+		return indexes;
+	}
+	
+	public int[] getNeighbours(int el) throws Exception{
+		
+		ArrayList<Integer> indexes = search(el);
+		
+		int neighboursSize = indexes.size();
+		
+		if((Integer)indexes.get(indexes.size()-1) == (counter -1))
+			neighboursSize--;
+		int[] neighbours = new int[neighboursSize];
+		for (int i = 0; i < neighboursSize; i++) {
+			int indexFromSearchTemp = (int)indexes.get(i);
+			int indexNeighboursTemp = indexFromSearchTemp+1;
+			neighbours[i] = list[indexNeighboursTemp];
+			
+		}
+		return neighbours;
+	}
+	
 }
 
