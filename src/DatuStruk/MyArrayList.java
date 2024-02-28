@@ -61,15 +61,23 @@ public class MyArrayList {
 		size = newSize;
 	}
 	
-	public void addElementsToLast(int el) {
+	public void add(int el) {
 		if(isFull()) resize();
 		list[counter++] = el;
 	}
 	
-	public void addElementsToIndex(int el, int i) throws Exception{
+	public void add(int index, int el) throws Exception{
 		if(isFull()) resize();
-		if(i > counter + 1 && 0 < 1) {
+		if(index < 0 || index > counter) {
 			throw new Exception("Kļūda");
+		}
+		if (index == counter) add(el);
+		else {
+			for(int i = counter; i > index; i--) {
+				list[i] = list[i-1];
+			}
+			list[index] = el;
+			counter++;
 		}
 	}
 }
