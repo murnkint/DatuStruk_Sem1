@@ -80,4 +80,16 @@ public class MyArrayList {
 			counter++;
 		}
 	}
+	public void remove(int index) throws Exception{
+		if(index < 0 || index > counter) {
+			throw new Exception("Nav pareizs index");
+		}
+		if (isEmpty()) throw new Exception("List is empty");
+		
+		for(int i = index; i < counter -1; i++) {
+			list[i] = list[i+1];
+		}
+		counter--;
+	}
 }
+
