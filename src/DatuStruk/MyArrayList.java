@@ -60,4 +60,16 @@ public class MyArrayList {
 	//8. size naomainām uz newSize
 		size = newSize;
 	}
+	
+	public void addElementsToLast(int el) {
+		if(isFull()) resize();
+		list[counter++] = el;
+	}
+	
+	public void addElementsToIndex(int el, int i) throws Exception{
+		if(isFull()) resize();
+		if(i > counter + 1 && 0 < 1) {
+			throw new Exception("Kļūda");
+		}
+	}
 }
