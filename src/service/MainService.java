@@ -5,18 +5,19 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import DatuStruk.MyArrayList;
+import model.Student;
 
 public class MainService {
 
 	public static void main(String[] args) {
 	
-		File file = new File("numbers.txt");
+		MyArrayList<Integer> myList = new MyArrayList<Integer>(3);
 		
-		MyArrayList myList = new MyArrayList(0);
 		try {
-			myList = ReadFromFile(file);
-		} catch (Exception e) {
-			e.printStackTrace();
+			myList = ReadFromFile2("resource\\numbers.txt");
+		}
+		catch (Exception e) {
+			e.printStackTrace();;
 		}
 		
 		myList.add(100);
@@ -42,11 +43,47 @@ public class MainService {
 			myList.print();//100000
 			
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+
+		System.out.println("-----------------------------");
+		MyArrayList<Student> allStudents = new MyArrayList<Student>();
+		
+		Student s1 = new Student("Janis", "Berzins");
+		Student s2 = new Student("Liga", "Jauka");
+		Student s3 = new Student("Baiba", "Kalnina");
+		
+		allStudents.add(s1);//Janis
+		allStudents.add(s2);//Janis Liga
+		try
+		{
+			allStudents.add(0, s3); //Baiba Janis Liga
+			allStudents.print();//Baiba Janis Liga
+			
+			System.out.println(allStudents.search(s1));//1
+			System.out.println(Arrays.toString(allStudents.getNeighbours(s1)));//Liga
+			
+			allStudents.print();//Baiba Janis Liga
+			allStudents.sort();
+			allStudents.print();//Baiba Janis Liga
+				
+			
+			allStudents.remove(1);
+			allStudents.print();//Baiba Liga
+			
+			allStudents.makeEmpty();
+			allStudents.add(s1);
+			allStudents.print();//Janis
+			
+		
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
 	}
-	
+			
 	public static MyArrayList ReadFromFile(File file) throws Exception{
 		Scanner sc = new Scanner(file);
 		MyArrayList listFromTextFile = new MyArrayList(0);
@@ -56,5 +93,21 @@ public class MainService {
 		sc.close();
 		return listFromTextFile;
 	}
+	
+	public static MyArrayList ReadFromFile2(String path) throws Exception{
+		if(path == null || path.length() < 3) throw new Exception("problem with file path");
+		
+		MyArrayList<Integer> listForNumbers = new MyArrayList<Integer>();
+		File file = new File(path);
+		Scanner scanner = new Scanner(file);
+		
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			Integer tempNumber = Integer.parseInt(line);
+		}
+		scanner.close();
+		return listForNumbers;
+	}
+	
 
 }
