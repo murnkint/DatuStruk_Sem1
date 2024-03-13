@@ -1,6 +1,7 @@
 package service;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -12,13 +13,6 @@ public class MainService {
 	public static void main(String[] args) {
 	
 		MyArrayList<Integer> myList = new MyArrayList<Integer>(3);
-		
-		try {
-			myList = ReadFromFile2("resource\\numbers.txt");
-		}
-		catch (Exception e) {
-			e.printStackTrace();;
-		}
 		
 		myList.add(100);
 		myList.add(200);
@@ -78,8 +72,21 @@ public class MainService {
 			allStudents.print();//Janis
 			
 		
+		} catch (Exception e) {
+		// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		catch (Exception e) {
+		
+		try {
+			MyArrayList<Integer> numbersFromFile = readFromFile("resource\\numbers.txt");
+			numbersFromFile.print();
+			numbersFromFile.sort();
+			numbersFromFile.print();
+		} catch (NumberFormatException e) {
+			System.out.println("It is not possible to parse string to integer");
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
@@ -94,20 +101,24 @@ public class MainService {
 		return listFromTextFile;
 	}
 	
-	public static MyArrayList ReadFromFile2(String path) throws Exception{
-		if(path == null || path.length() < 3) throw new Exception("problem with file path");
-		
+	public static MyArrayList<Integer> readFromFile(String path) throws Exception, FileNotFoundException,  NumberFormatException {
+		if(path == null || path.length() < 3) throw new Exception("Problem with file path");
+	
+	
 		MyArrayList<Integer> listForNumbers = new MyArrayList<Integer>();
 		File file = new File(path);
+		//TODO izveidot FileInputStream
 		Scanner scanner = new Scanner(file);
 		
-		while (scanner.hasNextLine()) {
+		while(scanner.hasNextLine()) {
 			String line = scanner.nextLine();
+			
 			Integer tempNumber = Integer.parseInt(line);
+			listForNumbers.add(tempNumber);	
 		}
+		
 		scanner.close();
 		return listForNumbers;
-	}
 	
-
+	}
 }
